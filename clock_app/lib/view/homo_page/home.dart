@@ -1,5 +1,6 @@
 import 'package:clock_app/controller/clock_view/clock_view.dart';
 import 'package:clock_app/view/clock_view/clock_view.dart';
+import 'package:clock_app/view/homo_page/widget/side_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -14,84 +15,54 @@ class Homepage extends StatelessWidget {
     var formattedTime = DateFormat('HH:mm').format(now);
     var formattedDate = DateFormat('EEE,d,MMM').format(now);
     var timeZoneString = now.timeZoneOffset.toString().split('.').first;
-    var offsetSign = '';
-    if (!timeZoneString.startsWith('-')) offsetSign = '+';
-    print(timeZoneString);
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 16, 17, 49),
       body: SafeArea(
         child: Row(
           children: [
-            Container(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 50,
-                    width: 60,
-                    child: Column(
-                      children: const [
-                        Icon(
-                          Icons.watch_later_outlined,
-                          color: Colors.white,
-                        ),
-                        Text(
-                          'Clock',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                    width: 60,
-                    child: Column(
-                      children: const [
-                        Icon(
-                          Icons.watch_later_outlined,
-                          color: Colors.white,
-                        ),
-                        Text(
-                          'Clock',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                    width: 60,
-                    child: Column(
-                      children: const [
-                        Icon(
-                          Icons.watch_later_outlined,
-                          color: Colors.white,
-                        ),
-                        Text(
-                          'Clock',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                    width: 60,
-                    child: Column(
-                      children: const [
-                        Icon(
-                          Icons.watch_later_outlined,
-                          color: Colors.white,
-                        ),
-                        Text(
-                          'Clock',
-                          style: TextStyle(color: Colors.white),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+            Column(
+              children: const [
+                SizedBox(
+                  height: 200,
+                ),
+                SideMenu(
+                  colors: Color.fromARGB(255, 155, 233, 225),
+                  icon: Icons.watch_later_outlined,
+                  text: 'Clock',
+                  size: 29,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SideMenu(
+                  colors: Color.fromARGB(255, 104, 115, 186),
+                  size: 29,
+                  icon: Icons.alarm,
+                  text: 'Alaram',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SideMenu(
+                  colors: Color.fromARGB(255, 133, 185, 228),
+                  size: 29,
+                  icon: Icons.timer_outlined,
+                  text: 'Timer',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                SideMenu(
+                  colors: Color.fromARGB(255, 179, 174, 128),
+                  size: 29,
+                  icon: Icons.more_time_rounded,
+                  text: 'Stopwatch',
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
             ),
             const VerticalDivider(
               color: Colors.grey,
