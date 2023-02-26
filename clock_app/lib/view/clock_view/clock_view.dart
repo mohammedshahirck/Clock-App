@@ -1,37 +1,19 @@
-import 'dart:async';
 import 'dart:math';
 import 'package:clock_app/controller/clock_view/clock_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ClockView extends StatefulWidget {
+class ClockView extends StatelessWidget {
   const ClockView({super.key});
 
   @override
-  State<ClockView> createState() => _ClockViewState();
-}
-
-class _ClockViewState extends State<ClockView> {
-  late Timer timer;
-  @override
-  void initState() {
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      Provider.of<ClockViewProvider>(context, listen: false).updatetime();
-    });
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    timer.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<ClockViewProvider>(context, listen: false).clock();
+    });
     return SizedBox(
-      width: 300,
+      width: double.infinity,
       height: 300,
       child: Transform.rotate(
         angle: -pi / 2,
@@ -82,8 +64,13 @@ class ClockPainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
       ..strokeWidth = 8;
-    canvas.drawCircle(center, radius - 30, fillBrush);
-    canvas.drawCircle(center, radius - 30, outlineBrush);
+    var dashBrush = Paint()
+      ..color = const Color(0xFFEAECFF)
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 3;
+    canvas.drawCircle(center, radius - 45, fillBrush);
+    canvas.drawCircle(center, radius - 45, outlineBrush);
 
     var minlegX = centerX + 70 * cos(dateTime.minute * 6 * pi / 180);
     var minlegY = centerY + 80 * sin(dateTime.minute * 6 * pi / 180);
@@ -95,6 +82,17 @@ class ClockPainter extends CustomPainter {
     var seclegY = centerY + 70 * sin(dateTime.second * 6 * pi / 180);
     canvas.drawLine(center, Offset(seclegX, seclegY), secLegBrush);
     canvas.drawCircle(center, 5, centerBrush);
+    var outerCircleRadius = radius - 15;
+    var innerCircleRadius = radius - 28;
+    for (double i = 0; i < 360; i += 30) {
+      var x1 = centerX + outerCircleRadius * cos(i * pi / 180);
+      var y1 = centerY + outerCircleRadius * sin(i * pi / 180);
+
+      var x2 = centerX + innerCircleRadius * cos(i * pi / 180);
+      var y2 = centerY + innerCircleRadius * sin(i * pi / 180);
+
+      canvas.drawLine(Offset(x1, y1), Offset(x2, y2), dashBrush);
+    }
   }
 
   @override
