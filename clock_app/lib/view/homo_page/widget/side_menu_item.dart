@@ -15,24 +15,27 @@ class SideMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 80,
-      width: 100,
-      child: Column(
-        children: [
-          Icon(
-            icon,
-            color: colors,
-            size: size,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            text,
-            style: TextStyle(color: colors),
-          )
-        ],
+    return GestureDetector(
+      onTap: () {},
+      child: SizedBox(
+        height: 80,
+        width: 100,
+        child: Column(
+          children: [
+            Icon(
+              icon,
+              color: colors,
+              size: size,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              text,
+              style: TextStyle(color: colors),
+            )
+          ],
+        ),
       ),
     );
   }

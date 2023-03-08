@@ -17,7 +17,7 @@ class Homepage extends StatelessWidget {
     var timeZoneString = now.timeZoneOffset.toString().split('.').first;
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 16, 17, 49),
+      backgroundColor: const Color(0xff262A39),
       body: SafeArea(
         child: Row(
           children: [
@@ -60,7 +60,7 @@ class Homepage extends StatelessWidget {
                   text: 'Stopwatch',
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
               ],
             ),
@@ -68,23 +68,38 @@ class Homepage extends StatelessWidget {
               color: Colors.grey,
               thickness: 1,
             ),
+            const SizedBox(
+              width: 20,
+            ),
             Expanded(
               child: Container(
-                color: const Color.fromARGB(255, 16, 17, 49),
+                color: const Color(0xff262A39),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    const SizedBox(
+                      height: 80,
+                    ),
                     const Text(
                       'clock',
                       style: TextStyle(color: Colors.white, fontSize: 24),
+                    ),
+                    const SizedBox(
+                      height: 10,
                     ),
                     Text(
                       formattedTime,
                       style: const TextStyle(color: Colors.white, fontSize: 64),
                     ),
+                    const SizedBox(
+                      height: 10,
+                    ),
                     Text(
                       formattedDate,
                       style: const TextStyle(color: Colors.white, fontSize: 24),
+                    ),
+                    const SizedBox(
+                      height: 30,
                     ),
                     const ClockView(),
                     const Text(
