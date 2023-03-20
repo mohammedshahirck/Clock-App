@@ -2,7 +2,7 @@ import 'package:clock_app/controller/clock_view/clock_view.dart';
 import 'package:clock_app/view/clock_view/clock_view.dart';
 import 'package:clock_app/view/homo_page/widget/side_menu_item.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
 import 'package:provider/provider.dart';
 
 class Homepage extends StatelessWidget {
@@ -12,12 +12,10 @@ class Homepage extends StatelessWidget {
   Widget build(BuildContext context) {
     final now =
         Provider.of<ClockViewProvider>(context, listen: false).currentTime;
-    var formattedTime = DateFormat('HH:mm').format(now);
-    var formattedDate = DateFormat('EEE,d,MMM').format(now);
-    var timeZoneString = now.timeZoneOffset.toString().split('.').first;
 
     return Scaffold(
-      backgroundColor: const Color(0xff262A39),
+      // backgroundColor: const Color(0xff262A39),
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Row(
           children: [
@@ -68,12 +66,10 @@ class Homepage extends StatelessWidget {
               color: Colors.grey,
               thickness: 1,
             ),
-            const SizedBox(
-              width: 20,
-            ),
             Expanded(
               child: Container(
-                color: const Color(0xff262A39),
+                color: Colors.black,
+                // color: const Color(0xff262A39),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -88,32 +84,39 @@ class Homepage extends StatelessWidget {
                       height: 10,
                     ),
                     Text(
-                      formattedTime,
+                      '${now.hour}:${now.minute}',
                       style: const TextStyle(color: Colors.white, fontSize: 64),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     Text(
-                      formattedDate,
+                      '${now.day} /${now.month} /${now.year}',
                       style: const TextStyle(color: Colors.white, fontSize: 24),
                     ),
                     const SizedBox(
                       height: 30,
                     ),
-                    const ClockView(),
-                    const Text(
-                      'Timezone',
-                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * .6,
+                      child: const ClockView(),
+                    ),
+                    const SizedBox(
+                      height: 20,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        const Text(
+                          'Timezone',
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        ),
                         const Icon(
                           Icons.language,
                           color: Colors.white,
                         ),
                         Text(
-                          'UTC $timeZoneString',
+                          '${now.timeZoneName} UTC',
                           style: const TextStyle(
                               color: Colors.white, fontSize: 24),
                         ),

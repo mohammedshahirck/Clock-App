@@ -14,12 +14,12 @@ class ClockPainter extends CustomPainter {
     var center = Offset(centerX, centerY);
     var radius = min(centerX, centerY);
 
-    var fillBrush = Paint()..color = const Color.fromARGB(255, 60, 81, 131);
-    var outlineBrush = Paint()
-      ..color = const Color.fromARGB(255, 146, 152, 190)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3;
-    var centerBrush = Paint()..color = Color.fromARGB(255, 245, 246, 250);
+    // var fillBrush = Paint()..color = const Color.fromARGB(255, 60, 81, 131);
+    // var outlineBrush = Paint()
+    //   ..color = const Color.fromARGB(255, 146, 152, 190)
+    //   ..style = PaintingStyle.stroke
+    //   ..strokeWidth = 3;
+    var centerBrush = Paint()..color = const Color.fromARGB(255, 245, 246, 250);
     var secLegBrush = Paint()
       ..color = Colors.orange
       ..style = PaintingStyle.stroke
@@ -40,29 +40,48 @@ class ClockPainter extends CustomPainter {
       ]).createShader(Rect.fromCircle(center: center, radius: radius))
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10;
-    var dashBrush = Paint()
-      ..color = const Color(0xFFEAECFF)
+      ..strokeWidth = 7;
+    var minBrush = Paint()
+      ..color = Colors.white
+      //  Colors.blueGrey
+      // const Color(0xFFEAECFF)
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..toString()
-      ..strokeWidth = 3;
-    canvas.drawCircle(center, radius - 45, fillBrush);
-    canvas.drawCircle(center, radius - 45, outlineBrush);
+      ..strokeWidth = .2;
+    var dashBrush = Paint()
+      ..color = Colors.white
+      //  Colors.blueGrey
+      // const Color(0xFFEAECFF)
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..toString()
+      ..strokeWidth = 1;
+    // canvas.drawCircle(center, radius - 45, fillBrush);
+    // canvas.drawCircle(center, radius - 45, outlineBrush);
 
-    var hourlegX = centerX + 50 * cos(dateTime.hour * 30 * pi / 180);
-    var hourlegY = centerY + 50 * sin(dateTime.hour * 30 * pi / 180);
+    var hourlegX = centerX + 35 * cos(dateTime.hour * 30 * pi / 180);
+    var hourlegY = centerY + 35 * sin(dateTime.hour * 30 * pi / 180);
     canvas.drawLine(center, Offset(hourlegX, hourlegY), hourBrush);
 
-    var minlegX = centerX + 60 * cos(dateTime.minute * 6 * pi / 180);
-    var minlegY = centerY + 60 * sin(dateTime.minute * 6 * pi / 180);
+    var minlegX = centerX + 50 * cos(dateTime.minute * 6 * pi / 180);
+    var minlegY = centerY + 50 * sin(dateTime.minute * 6 * pi / 180);
     canvas.drawLine(center, Offset(minlegX, minlegY), minLegBrush);
-    var seclegX = centerX + 70 * cos(dateTime.second * 6 * pi / 180);
-    var seclegY = centerY + 70 * sin(dateTime.second * 6 * pi / 180);
+    var seclegX = centerX + 60 * cos(dateTime.second * 6 * pi / 180);
+    var seclegY = centerY + 60 * sin(dateTime.second * 6 * pi / 180);
     canvas.drawLine(center, Offset(seclegX, seclegY), secLegBrush);
     canvas.drawCircle(center, 10, centerBrush);
     var outerCircleRadius = radius - 15;
     var innerCircleRadius = radius - 28;
+    for (double j = 0; j < 360; j += 6) {
+      var x1 = centerX + outerCircleRadius * cos(j * pi / 180);
+      var y1 = centerY + outerCircleRadius * sin(j * pi / 180);
+
+      var x2 = centerX + innerCircleRadius * cos(j * pi / 180);
+      var y2 = centerY + innerCircleRadius * sin(j * pi / 180);
+
+      canvas.drawLine(Offset(x1, y1), Offset(x2, y2), minBrush);
+    }
     for (double i = 0; i < 360; i += 30) {
       var x1 = centerX + outerCircleRadius * cos(i * pi / 180);
       var y1 = centerY + outerCircleRadius * sin(i * pi / 180);
@@ -72,7 +91,7 @@ class ClockPainter extends CustomPainter {
 
       canvas.drawLine(Offset(x1, y1), Offset(x2, y2), dashBrush);
     }
-    final Widget cir = CircleAvatar();
+    // final Widget cir = const CircleAvatar();
   }
 
   @override
